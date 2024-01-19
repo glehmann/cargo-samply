@@ -1,4 +1,5 @@
 use clap::Parser;
+use clap_verbosity_flag::{InfoLevel, Verbosity};
 
 /// A cargo subcommand for profiling binaries using samply
 #[derive(Parser, Debug)]
@@ -28,7 +29,6 @@ pub struct Config {
     #[arg(long)]
     pub no_default_features: bool,
 
-    /// Print extra output to help debug problems
-    #[arg(short, long, default_value_t = false)]
-    pub verbose: bool,
+    #[command(flatten)]
+    pub verbose: Verbosity<InfoLevel>,
 }

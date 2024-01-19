@@ -21,11 +21,9 @@ fn main() {
 
 fn run() -> error::Result<()> {
     let cli = cli::Config::parse();
-    ocli::init(if cli.verbose {
-        log::Level::Debug
-    } else {
-        log::Level::Info
-    })?;
+    if let Some(level) = cli.verbose.log_level() {
+        ocli::init(level)?;
+    }
     if cli.bin.is_some() && cli.example.is_some() {
         return Err(error::Error::BinAndExampleMutuallyExclusive);
     }
